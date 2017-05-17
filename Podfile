@@ -5,8 +5,9 @@ target ‘mi-ios’ do
   # Comment the next line if you're not using Swift and don't want to use dynamic frameworks
   use_frameworks!
 
-  # Pods for VirtualniAs
+  # Pods for mi-ios
   pod 'GVRSDK', '1.40.0'
+  pod 'GoogleMaps', '~> 2.2.0'
   pod 'RealmSwift', '~> 2.7.0'
   pod 'ReactiveSwift', '~> 1.1.1'
   pod 'ReactiveCocoa', '~> 5.0.3'

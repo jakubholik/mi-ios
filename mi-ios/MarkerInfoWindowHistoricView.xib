@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="PTSerif-Bold.ttf">
+            <string>PTSerif-Bold</string>
+        </array>
+        <array key="PTSerif-Regular.ttf">
+            <string>PTSerif-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" userLabel="MarkerInfoWindow" customClass="MarkerInfoWindow" customModule="mi_ios" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="300" height="260"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oFn-DK-rNg">
+                    <rect key="frame" x="5" y="5" width="290" height="20"/>
+                    <fontDescription key="fontDescription" name="PTSerif-Bold" family="PT Serif" pointSize="17"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+                <button opaque="NO" contentMode="scaleToFill" verticalCompressionResistancePriority="748" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jAX-SW-mKI">
+                    <rect key="frame" x="204" y="224" width="91" height="31"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="91" id="1gE-O0-gT7"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="PTSerif-Regular" family="PT Serif" pointSize="15"/>
+                    <state key="normal" title="Button"/>
+                </button>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" verticalCompressionResistancePriority="749" image="bg_video" translatesAutoresizingMaskIntoConstraints="NO" id="wtE-Iq-sqj">
+                    <rect key="frame" x="5" y="30" width="290" height="93"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="93" id="veg-37-8xK"/>
+                    </constraints>
+                </imageView>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" numberOfLines="4" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="wfg-WR-AaW">
+                    <rect key="frame" x="5" y="131" width="290" height="85"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="85" id="6he-xu-dUz"/>
+                    </constraints>
+                    <fontDescription key="fontDescription" name="PTSerif-Regular" family="PT Serif" pointSize="13"/>
+                    <nil key="textColor"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <accessibility key="accessibilityConfiguration">
+                <bool key="isElement" value="YES"/>
+            </accessibility>
+            <constraints>
+                <constraint firstItem="wfg-WR-AaW" firstAttribute="top" secondItem="wtE-Iq-sqj" secondAttribute="bottom" constant="8" symbolic="YES" id="1XH-eH-8UB"/>
+                <constraint firstAttribute="trailing" secondItem="oFn-DK-rNg" secondAttribute="trailing" constant="5" id="2LT-ri-lF8"/>
+                <constraint firstItem="jAX-SW-mKI" firstAttribute="top" secondItem="wfg-WR-AaW" secondAttribute="bottom" constant="8" symbolic="YES" id="4yY-JL-Qb5"/>
+                <constraint firstAttribute="trailing" secondItem="wtE-Iq-sqj" secondAttribute="trailing" constant="5" id="9sJ-3u-soq"/>
+                <constraint firstAttribute="trailing" secondItem="wfg-WR-AaW" secondAttribute="trailing" constant="5" id="AvD-1d-nFu"/>
+                <constraint firstItem="wtE-Iq-sqj" firstAttribute="top" secondItem="oFn-DK-rNg" secondAttribute="bottom" constant="5" id="L9K-OX-a7a"/>
+                <constraint firstItem="oFn-DK-rNg" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" constant="5" id="VXs-ZJ-0hK"/>
+                <constraint firstItem="wfg-WR-AaW" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="aiU-N5-Ee5"/>
+                <constraint firstItem="oFn-DK-rNg" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="fC1-od-xfb"/>
+                <constraint firstAttribute="trailing" secondItem="jAX-SW-mKI" secondAttribute="trailing" constant="5" id="ipc-Bz-DB6"/>
+                <constraint firstItem="wtE-Iq-sqj" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" constant="5" id="kGt-7L-9ue"/>
+                <constraint firstAttribute="bottom" secondItem="jAX-SW-mKI" secondAttribute="bottom" constant="5" id="mUM-a8-3b1"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="detailButton" destination="jAX-SW-mKI" id="7Ir-lr-INA"/>
+                <outlet property="placeDescription" destination="wfg-WR-AaW" id="FWi-x8-IBI"/>
+                <outlet property="previewImage" destination="wtE-Iq-sqj" id="NlP-o1-jyW"/>
+                <outlet property="title" destination="oFn-DK-rNg" id="HGI-mU-kGj"/>
+            </connections>
+            <point key="canvasLocation" x="36" y="290"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="bg_video" width="400" height="121"/>
+    </resources>
+</document>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="12120" systemVersion="16E195" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="12088"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="AudioCell" id="1vZ-ug-Piq" customClass="GuideDetailAudioCell" customModule="VirtualniAs" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="427" height="413"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                <rect key="frame" x="0.0" y="0.0" width="427" height="413"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="999" text="Content" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999998807907104" translatesAutoresizingMaskIntoConstraints="NO" id="76N-e1-b43">
+                        <rect key="frame" x="20" y="188" width="387" height="205"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="1000" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PVw-VC-aMI">
+                        <rect key="frame" x="20" y="147" width="387" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bg_audio" translatesAutoresizingMaskIntoConstraints="NO" id="pN5-a4-wER">
+                        <rect key="frame" x="0.0" y="0.0" width="427" height="139"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="139" id="bji-Rf-So5"/>
+                        </constraints>
+                    </imageView>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="11.04.2016" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.69999998807907104" translatesAutoresizingMaskIntoConstraints="NO" id="9rn-t4-sNS">
+                        <rect key="frame" x="-6" y="0.0" width="120" height="30"/>
+                        <color key="backgroundColor" red="0.36078431370000003" green="0.38823529410000002" blue="0.4039215686" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="width" constant="120" id="3jU-4Z-fmw"/>
+                            <constraint firstAttribute="height" constant="30" id="v7Q-He-G0l"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" type="system" pointSize="16"/>
+                        <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <progressView opaque="NO" contentMode="scaleToFill" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="8ZP-be-4z7">
+                        <rect key="frame" x="20" y="139" width="387" height="2"/>
+                    </progressView>
+                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="uxV-Xr-a8n" userLabel="Play Button">
+                        <rect key="frame" x="192" y="48" width="42" height="42"/>
+                        <state key="normal" image="audio_play"/>
+                    </button>
+                </subviews>
+            </view>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="76N-e1-b43" secondAttribute="bottom" constant="20" id="4rb-7i-lhN"/>
+                <constraint firstItem="8ZP-be-4z7" firstAttribute="leading" secondItem="1vZ-ug-Piq" secondAttribute="leading" constant="20" id="9vi-dP-eci"/>
+                <constraint firstAttribute="trailing" secondItem="8ZP-be-4z7" secondAttribute="trailing" constant="20" id="GNC-jy-3uO"/>
+                <constraint firstItem="pN5-a4-wER" firstAttribute="leading" secondItem="1vZ-ug-Piq" secondAttribute="leading" id="Jr0-l3-hwP"/>
+                <constraint firstItem="pN5-a4-wER" firstAttribute="top" secondItem="1vZ-ug-Piq" secondAttribute="top" id="Jzg-um-03m"/>
+                <constraint firstAttribute="trailing" secondItem="76N-e1-b43" secondAttribute="trailing" constant="20" id="ODt-iL-8UB"/>
+                <constraint firstItem="9rn-t4-sNS" firstAttribute="leading" secondItem="1vZ-ug-Piq" secondAttribute="leading" constant="-6" id="QMr-Ac-Ck6"/>
+                <constraint firstAttribute="trailing" secondItem="PVw-VC-aMI" secondAttribute="trailing" constant="20" id="SDW-0m-2mr"/>
+                <constraint firstItem="9rn-t4-sNS" firstAttribute="top" secondItem="pN5-a4-wER" secondAttribute="top" id="Vxa-pi-Odn"/>
+                <constraint firstItem="uxV-Xr-a8n" firstAttribute="top" secondItem="1vZ-ug-Piq" secondAttribute="top" constant="48" id="bna-on-Rcy"/>
+                <constraint firstItem="8ZP-be-4z7" firstAttribute="top" secondItem="pN5-a4-wER" secondAttribute="bottom" id="dA9-fX-uVB"/>
+                <constraint firstItem="76N-e1-b43" firstAttribute="top" secondItem="PVw-VC-aMI" secondAttribute="bottom" constant="20" id="fL8-sX-ZDG"/>
+                <constraint firstItem="76N-e1-b43" firstAttribute="leading" secondItem="1vZ-ug-Piq" secondAttribute="leading" constant="20" id="gmb-ld-wSR"/>
+                <constraint firstItem="PVw-VC-aMI" firstAttribute="leading" secondItem="1vZ-ug-Piq" secondAttribute="leading" constant="20" id="kJv-CD-9Og"/>
+                <constraint firstItem="uxV-Xr-a8n" firstAttribute="centerX" secondItem="1vZ-ug-Piq" secondAttribute="centerX" id="thA-WE-X5V"/>
+                <constraint firstAttribute="trailing" secondItem="pN5-a4-wER" secondAttribute="trailing" id="ywd-0S-AqZ"/>
+                <constraint firstItem="PVw-VC-aMI" firstAttribute="top" secondItem="pN5-a4-wER" secondAttribute="bottom" constant="8" id="z9d-fx-5qc"/>
+            </constraints>
+            <size key="customSize" width="427" height="413"/>
+            <connections>
+                <outlet property="dateLabel" destination="9rn-t4-sNS" id="X44-5F-AsK"/>
+                <outlet property="descriptionLabel" destination="76N-e1-b43" id="n02-2u-hhD"/>
+                <outlet property="imageView" destination="pN5-a4-wER" id="2Mz-eB-siq"/>
+                <outlet property="playButton" destination="uxV-Xr-a8n" id="xpG-Vm-SAH"/>
+                <outlet property="progressView" destination="8ZP-be-4z7" id="vPi-af-2kY"/>
+                <outlet property="titleLabel" destination="PVw-VC-aMI" id="KUx-yg-hum"/>
+            </connections>
+            <point key="canvasLocation" x="-41.5" y="19.5"/>
+        </collectionViewCell>
+    </objects>
+    <resources>
+        <image name="audio_play" width="42" height="42"/>
+        <image name="bg_audio" width="400" height="280"/>
+    </resources>
+</document>
