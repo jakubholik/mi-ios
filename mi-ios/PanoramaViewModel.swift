@@ -90,9 +90,9 @@ class PanoramaViewModel {
 		
 	}
 	
-	/*
-	Loads panorama image to imageVRView and sets info points
-	*/
+	
+	//Loads panorama image to imageVRView and sets info points
+	
 	func loadPanoramaImage(for panorama: Panorama, with cardinalPercentage: CGFloat){
 		
 		guard let delegate = delegate ,
@@ -137,6 +137,9 @@ class PanoramaViewModel {
 		
 	}
 	
+	
+	// Action when infoPoint tapped
+	
 	@objc func panoramaInfoPointTapped(_ sender: UIButton) {
 		print(sender)
 		guard let place = place,
@@ -159,6 +162,9 @@ class PanoramaViewModel {
 		delegate.present(alertController, animated: true, completion: nil)
 		
 	}
+	
+	
+	// Update posiotions of all infoPoints on device position change
 	
 	func deviceMotionUpdate(with gravity: CMAcceleration, and attitude: CMAttitude){
 		
@@ -194,16 +200,24 @@ class PanoramaViewModel {
 				}
 				
 				let infoPoint = panorama.infoPoints[button.tag-1]
-				var translatePosition = CGFloat(0)
+				var basePositionX = CGFloat(0)
+				var basePositionY = CGFloat(0)
 				
 				if let image = UIImage(named: panorama.image) {
 					let height = image.size.height * image.scale
-					let heightDifference = (CGFloat(350) > height/2) ? (CGFloat(350)-height/2) : (-(height/2 - CGFloat(350)))
+					let width = image.size.width * image.scale
+					
+					let heightDifference = (CGFloat(infoPoint.positionY) > height/2) ? (CGFloat(infoPoint.positionY)-height/2) : (-(height/2 - CGFloat(infoPoint.positionY)))
 					let heightRatio = heightDifference/(height/2)
 					
-					translatePosition = CGFloat((Double(heightRatio)*(Double.pi/2))/Double.pi)*CGFloat(fullHeight)*0.5
-
-					print("Image height: \(height) InfoPointY: \(infoPoint.positionY)  HeightDiff: \(heightDifference) HeightRatio: \(heightRatio) HeightRatioRadian: \(Double(heightRatio)*(Double.pi/2)) PixelsTranslate: \(translateY + translatePosition)")
+					let widthDifference = (CGFloat(infoPoint.positionX) > width/2) ? -(width/2 + (width/2 - CGFloat(infoPoint.positionX))) : CGFloat(infoPoint.positionX)
+					let widthRatio = widthDifference/(width/2)
+					
+					basePositionY = CGFloat((Double(heightRatio)*(Double.pi/2))/Double.pi)*CGFloat(fullHeight)*0.5
+					basePositionX = CGFloat(fullWidth)*widthRatio*CGFloat(cos(degrees: 45))
+					
+					//print("Image height: \(height) InfoPointY: \(infoPoint.positionY)  HeightDiff: \(heightDifference) HeightRatio: \(heightRatio) HeightRatioRadian: \(Double(heightRatio)*(Double.pi/2)) PixelsTranslate: \(translateY + basePositionY)")
+					print("Image width: \(width) InfoPointX: \(infoPoint.positionX)  WidthDiff: \(widthDifference) WidthRatio: \(widthRatio) translateX: \(translateX + basePositionX)")
 				}
 				
 				if abs(translateX - subview.transform.tx) < 0.5 {
@@ -214,7 +228,7 @@ class PanoramaViewModel {
 				}
 				
 				
-				subview.transform = CGAffineTransform(rotationAngle: 0).translatedBy(x: CGFloat(translateX), y: CGFloat(translateY + translatePosition))
+				subview.transform = CGAffineTransform(rotationAngle: 0).translatedBy(x: CGFloat(translateX + basePositionX), y: CGFloat(translateY + basePositionY))
 				button.transform = CGAffineTransform(rotationAngle: rotation)
 			}
 			
@@ -223,21 +237,36 @@ class PanoramaViewModel {
 		
 	}
 	
+	
+	// Get sin form degrees
+	
 	func sin(degrees: Double) -> Double {
 		return __sinpi(degrees/180.0)
 	}
+	
+	
+	// Get cos form degrees
 	
 	func cos(degrees: Double) -> Double {
 		return __cospi(degrees/180.0)
 	}
 	
+	
+	// Get degrees form radians
+	
 	func degrees(radians:Double) -> Double {
 		return 180 / Double.pi * radians
 	}
 	
+	
+	// Get magnitude of attitude
+	
 	func magnitude(from attitude: CMAttitude) -> Double {
 		return sqrt(pow(attitude.roll, 2) + pow(attitude.yaw, 2) + pow(attitude.pitch, 2))
 	}
+	
+	
+	// Get percentage of heading with 360 base
 	
 	func getCardinalPercentage(from heading: CGFloat)->CGFloat{
 		return heading/360.0
