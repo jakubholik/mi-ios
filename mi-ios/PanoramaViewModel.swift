@@ -176,17 +176,71 @@ class PanoramaViewModel {
 		}
 		
 		let quaternion = attitude.quaternion
-		let roll = atan2(2*(quaternion.y*quaternion.z + quaternion.x*quaternion.w), 1 - 2*quaternion.x*quaternion.x - 2*quaternion.y*quaternion.y)
-		let pitch = asin(2*(quaternion.y*quaternion.w-quaternion.z*quaternion.x))
-		let yaw = atan2(2.0 * (quaternion.z * quaternion.w + quaternion.x * quaternion.y) , -1.0 + 2.0 * (quaternion.w * quaternion.w + quaternion.x * quaternion.x))
+		var roll: Double = 0
+		var pitch: Double = 0
+		var yaw: Double = 0
+		var fullWidth: Double = 0
+		var fullHeight: Double = 0
+		var rotation: CGFloat = 0
 		
-		let rotation = CGFloat(atan2(gravity.x, gravity.y) - Double.pi)
+		switch(UIDevice.current.orientation){
+		
+		case UIDeviceOrientation.landscapeLeft:
+			
+			roll = atan2(2*(quaternion.x*quaternion.z - quaternion.y*quaternion.w), 1 - 2*quaternion.y*quaternion.y - 2*quaternion.x*quaternion.x)
+			pitch = asin(2*(quaternion.x*quaternion.w + quaternion.z*quaternion.y))
+			yaw = atan2(2.0 * (quaternion.z * quaternion.w - quaternion.y * quaternion.x) , -1.0 + 2.0 * (quaternion.w * quaternion.w + quaternion.y * quaternion.y))
+			fullWidth = Double(imageVRView.bounds.height)*Double.pi
+			fullHeight = Double(imageVRView.bounds.width)*Double.pi
+			rotation = CGFloat(atan2(gravity.x, gravity.y) - (3/2)*Double.pi)
+			yaw = yaw - Double.pi/2
+			
+			break
+		
+		case UIDeviceOrientation.landscapeRight:
+			
+			roll = atan2(2*(-quaternion.x*quaternion.z + quaternion.y*quaternion.w), 1 - 2*quaternion.y*quaternion.y - 2*quaternion.x*quaternion.x)
+			pitch = asin(2*(-quaternion.x*quaternion.w-quaternion.z*quaternion.y))
+			yaw = atan2(2.0 * (quaternion.z * quaternion.w - quaternion.y * quaternion.x) , -1.0 + 2.0 * (quaternion.w * quaternion.w + quaternion.y * quaternion.y))
+			fullWidth = Double(imageVRView.bounds.height)*Double.pi
+			fullHeight = Double(imageVRView.bounds.width)*Double.pi
+			rotation = CGFloat(atan2(gravity.x, gravity.y) - Double.pi/2)
+			yaw = yaw + Double.pi/2
+			
+			break
+			
+		case UIDeviceOrientation.portraitUpsideDown:
+			
+			roll = atan2(2*(-quaternion.y * quaternion.z - quaternion.x * quaternion.w), 1 - 2 * quaternion.x * quaternion.x - 2 * quaternion.y * quaternion.y)
+			pitch = asin(2*(-quaternion.y * quaternion.w + quaternion.z * quaternion.x))
+			yaw = atan2(2.0 * (quaternion.z * quaternion.w + quaternion.x * quaternion.y) , -1.0 + 2.0 * (quaternion.w * quaternion.w + quaternion.x * quaternion.x))
+			fullWidth = Double(imageVRView.bounds.width)*Double.pi
+			fullHeight = Double(imageVRView.bounds.height)*Double.pi
+			rotation = CGFloat(atan2(gravity.x, gravity.y) - Double.pi)
+			
+			break
+			
+		default:
+			
+			roll = atan2(2*(quaternion.y*quaternion.z + quaternion.x*quaternion.w), 1 - 2*quaternion.x*quaternion.x - 2*quaternion.y*quaternion.y)
+			pitch = asin(2*(quaternion.y*quaternion.w - quaternion.z*quaternion.x))
+			yaw = atan2(2.0 * (quaternion.z * quaternion.w + quaternion.x * quaternion.y) , -1.0 + 2.0 * (quaternion.w * quaternion.w + quaternion.x * quaternion.x))
+			fullWidth = Double(imageVRView.bounds.width)*Double.pi
+			fullHeight = Double(imageVRView.bounds.height)*Double.pi
+			rotation = CGFloat(atan2(gravity.x, gravity.y) - Double.pi)
+			
+			break
+		}
+		
+		
+		let yawReset = (getCardinalPercentage(from: initialHeading) < CGFloat(0.5)) ? (-1)*getCardinalPercentage(from: initialHeading)*180*2 : (1-getCardinalPercentage(from: initialHeading))*360
+		
 		let rollDifference: Double = abs(Double.pi/2 - roll)
 		
-		let fullWidth = Double(imageVRView.bounds.width)*Double.pi
-		let fullHeight = Double(imageVRView.bounds.height)*Double.pi
-		var translateX = CGFloat(fullWidth*(self.degrees(radians: yaw)/180)*cos(degrees: 45))
-		var translateY = CGFloat(rollDifference/Double.pi)*CGFloat(fullHeight)*CGFloat((gravity.z/abs(gravity.z)))*0.5
+		var translateX = CGFloat(fullWidth*(self.degrees(radians: yaw)/180)*0.6)
+		var translateY = CGFloat(rollDifference/Double.pi)*CGFloat(fullHeight)*CGFloat((gravity.z/abs(gravity.z)))*0.45
+		
+		//print("Roll: \(roll) Pitch: \(pitch) Yaw: \(yaw)")
 		
 		for subview in imageVRView.subviews {
 			
@@ -202,6 +256,8 @@ class PanoramaViewModel {
 				let infoPoint = panorama.infoPoints[button.tag-1]
 				var basePositionX = CGFloat(0)
 				var basePositionY = CGFloat(0)
+				var rotationFixX: CGFloat = 0
+				var rotationFixY: CGFloat = 0
 				
 				if let image = UIImage(named: panorama.image) {
 					let height = image.size.height * image.scale
@@ -211,13 +267,35 @@ class PanoramaViewModel {
 					let heightRatio = heightDifference/(height/2)
 					
 					let widthDifference = (CGFloat(infoPoint.positionX) > width/2) ? -(width/2 + (width/2 - CGFloat(infoPoint.positionX))) : CGFloat(infoPoint.positionX)
-					let widthRatio = widthDifference/(width/2)
+					var widthRatio = widthDifference/(width/2)
 					
 					basePositionY = CGFloat((Double(heightRatio)*(Double.pi/2))/Double.pi)*CGFloat(fullHeight)*0.5
 					basePositionX = CGFloat(fullWidth)*widthRatio*CGFloat(cos(degrees: 45))
 					
-					//print("Image height: \(height) InfoPointY: \(infoPoint.positionY)  HeightDiff: \(heightDifference) HeightRatio: \(heightRatio) HeightRatioRadian: \(Double(heightRatio)*(Double.pi/2)) PixelsTranslate: \(translateY + basePositionY)")
-					print("Image width: \(width) InfoPointX: \(infoPoint.positionX)  WidthDiff: \(widthDifference) WidthRatio: \(widthRatio) translateX: \(translateX + basePositionX)")
+					rotationFixX = (-(imageVRView.frame.width - CGFloat(cos(degrees: degrees(radians: pitch))) * imageVRView.frame.width)*CGFloat((pitch/abs(pitch)) * Double.pi))*0.2
+					rotationFixY = (-(imageVRView.frame.width - CGFloat(cos(degrees: degrees(radians: pitch))) * imageVRView.frame.width)*CGFloat(Double.pi*1/3))*0.2
+					
+					if CGFloat(infoPoint.positionY) > height/2 {
+						rotationFixX = rotationFixX * (-1)
+					}
+					
+					if getCardinalPercentage(from: initialHeading) < CGFloat(0.5){
+						
+						let rest = width*getCardinalPercentage(from: initialHeading)
+						let absolutePosition = CGFloat(infoPoint.positionX) - rest + width/2
+						basePositionX = (absolutePosition > width/2) ? (-(width/2 - absolutePosition)) : absolutePosition
+						widthRatio = basePositionX/(width/2)
+						
+					} else {
+						
+						let rest = width - width*getCardinalPercentage(from: initialHeading)
+						let absolutePosition = rest + CGFloat(infoPoint.positionX)
+						basePositionX = (absolutePosition > width/2) ? -(width - absolutePosition) : absolutePosition
+						widthRatio = basePositionX/(width/2)
+						
+					}
+					
+					basePositionX = CGFloat(fullWidth)*widthRatio*0.65
 				}
 				
 				if abs(translateX - subview.transform.tx) < 0.5 {
@@ -227,8 +305,8 @@ class PanoramaViewModel {
 					translateY = subview.transform.ty
 				}
 				
-				
-				subview.transform = CGAffineTransform(rotationAngle: 0).translatedBy(x: CGFloat(translateX + basePositionX), y: CGFloat(translateY + basePositionY))
+
+				subview.transform = CGAffineTransform(rotationAngle: 0).translatedBy(x: CGFloat(translateX + basePositionX + rotationFixX), y: CGFloat(translateY + basePositionY + rotationFixY))
 				button.transform = CGAffineTransform(rotationAngle: rotation)
 			}
 			

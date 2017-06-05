@@ -62,7 +62,7 @@ extension UIImage{
 	}
 	
 	func repositionImage(basedOn cardinalPercentage: CGFloat)->UIImage {
-		
+		return self
 		var correctPercentage = cardinalPercentage
 		
 		if (correctPercentage - 0.5) < 0 {
